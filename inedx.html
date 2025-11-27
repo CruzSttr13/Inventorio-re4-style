@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Inventario Tipo Resident Evil 4</title>
+    <!-- CSS EXTERNO -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <!-- MENSAJE DE ROTACIÓN (Solo visible en vertical) -->
+    <div id="rotate-message">
+        <div id="rotate-icon">📱 ➔ 🔄</div>
+        <h2>Gira tu dispositivo</h2>
+        <p>Este juego requiere modo horizontal para gestionar el inventario táctico.</p>
+    </div>
+
+    <!-- JUEGO PRINCIPAL -->
+    <div class="game-layout">
+
+        <!-- INVENTARIO -->
+        <div class="inventory-container" id="inventory">
+            <div class="grid-background" id="grid-bg"></div>
+        </div>
+
+        <!-- CONTROLES (Ahora laterales) -->
+        <div class="controls-sidebar">
+            <div class="info-panel">
+                ITEM
+                <span id="selected-name">---</span>
+            </div>
+
+            <button class="btn btn-rotate" onclick="rotateSelectedItem()">
+                🔄 Rotar (R)
+            </button>
+
+            <button class="btn btn-magic" onclick="autoSort()">
+                ✨ Ordenar
+            </button>
+
+            <button class="btn btn-chaos" onclick="scrambleItems()">
+                🎲 Desordenar
+            </button>
+
+            <button class="btn btn-loot" onclick="generateNewLoot()">
+                🎁 Loot
+            </button>
+        </div>
+    </div>
+
+    <!-- JS EXTERNO -->
+    <script src="script.js"></script>
+</body>
+
+</html>
