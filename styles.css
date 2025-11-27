@@ -1,20 +1,21 @@
 :root {
     /* COLORES */
     --bg-color: #1a1a1d;
-    /* CAMBIO: Líneas un poco más claras para que se vean a través de los items */
     --grid-line-color: #4a4a4a;
     --highlight-color: rgba(255, 255, 255, 0.1);
     --selected-border: #f1c40f;
     --error-color: #e74c3c;
     --valid-color: #2ecc71;
 
-    /* DIMENSIONES DEL GRID (Base) */
+    /* DIMENSIONES DEL GRID */
     --cols: 10;
     --rows: 6;
     --gap: 2px;
 
-    /* CÁLCULO MÁGICO RESPONSIVE */
-    --cell-size: min(14vh, 8vw);
+    /* --- FÓRMULA MAESTRA PARA TU HONOR MAGIC7 --- */
+    /* Usamos 'dvh' (Dynamic Viewport Height). Esto calcula el alto RESTANDO la barra del navegador.
+       13.5dvh * 6 filas = 81% de la pantalla. Deja ~19% para márgenes. Perfecto. */
+    --cell-size: min(13.5dvh, 7.5vw);
 }
 
 /* 2. CSS: Estilos Globales */
@@ -24,11 +25,11 @@ body {
     color: #ecf0f1;
     margin: 0;
     overflow: hidden;
-    /* Sin scrollbars */
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    /* Usamos dvh para asegurar que cabe entre las barras del navegador */
+    height: 100dvh;
     width: 100vw;
     user-select: none;
     touch-action: none;
@@ -58,31 +59,33 @@ body {
     animation: rotate-anim 2s infinite;
 }
 
-/* LAYOUT DEL JUEGO */
+/* LAYOUT PRINCIPAL */
 .game-layout {
     display: flex;
     flex-direction: row;
-    /* Lado a lado */
     align-items: center;
     justify-content: center;
-    gap: 20px;
+    /* Reduje el gap para aprovechar tu pantalla ancha */
+    gap: 15px;
+    padding-left: 20px;
+    /* Safe area por si tienes notch o cámara en pantalla */
+    padding-right: 20px;
 }
 
+/* Contenedor del Inventario */
 /* Contenedor del Inventario */
 .inventory-container {
     position: relative;
     background-color: var(--bg-color);
-    border: 3px solid #555;
+    border: 2px solid #555;
+    /* Borde un poco más fino */
     border-radius: 6px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
     padding: var(--gap);
 
-    /* Tamaño exacto calculado */
     width: calc((var(--cell-size) * var(--cols)) + (var(--gap) * (var(--cols) - 1)));
     height: calc((var(--cell-size) * var(--rows)) + (var(--gap) * (var(--rows) - 1)));
-
-    /* Transición suave si redimensionas ventana en PC */
-    transition: width 0.3s, height 0.3s;
+    transition: width 0.2s, height 0.2s;
 }
 
 /* Grid Background */
@@ -118,8 +121,9 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: calc(var(--cell-size) * 0.22);
-    line-height: 1.1;
+    /* Texto responsivo basado en el tamaño de celda */
+    font-size: calc(var(--cell-size) * 0.20);
+    line-height: 1;
     text-align: center;
     z-index: 10;
     cursor: grab;
@@ -168,79 +172,92 @@ body {
     border-color: var(--error-color);
 }
 
-/* CONTROLES LATERALES (Estilo Mando) */
+/* --- CONTROLES MÁS COMPACTOS --- */
 .controls-sidebar {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    padding: 15px;
+    /* Reducimos el espacio entre botones para que quepan mejor */
+    gap: 8px;
+    padding: 12px;
     background: #222;
     border-radius: 12px;
     border: 2px solid #444;
-    min-width: 140px;
+    min-width: 120px;
+    /* Un poco más estrecho */
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    /* Asegura que la barra lateral nunca sea más alta que la pantalla */
+    max-height: 90dvh;
+    justify-content: center;
 }
 
 .info-panel {
     text-align: center;
     color: #aaa;
-    font-size: 0.9rem;
-    margin-bottom: 5px;
+    font-size: 0.8rem;
+    margin-bottom: 2px;
     border-bottom: 1px solid #444;
-    padding-bottom: 10px;
+    padding-bottom: 5px;
 }
 
 #selected-name {
     display: block;
     color: var(--selected-border);
     font-weight: bold;
-    font-size: 1.1rem;
-    margin-top: 5px;
+    font-size: 0.95rem;
+    /* Texto un pelín más pequeño */
+    margin-top: 2px;
     min-height: 1.2em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 110px;
 }
 
 .btn {
     background-color: #333;
     color: white;
     border: 1px solid #555;
-    padding: 12px;
+    /* Padding reducido para ahorrar altura */
+    padding: 8px 10px;
     border-radius: 6px;
     cursor: pointer;
     font-weight: bold;
-    transition: all 0.1s;
     text-transform: uppercase;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
+    /* Fuente optimizada para móvil */
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 5px;
+    height: 36px;
+    /* Altura fija controlada */
 }
 
 .btn:active {
-    background-color: #555;
+    background-color: #444;
     transform: scale(0.95);
 }
 
 .btn-rotate {
-    border-bottom: 4px solid #444;
+    border-bottom: 3px solid #444;
 }
 
 .btn-magic {
     background-color: #2980b9;
     border-color: #3498db;
-    border-bottom: 4px solid #1f618d;
+    border-bottom: 3px solid #1f618d;
 }
 
 .btn-chaos {
     background-color: #c0392b;
     border-color: #e74c3c;
-    border-bottom: 4px solid #922b21;
+    border-bottom: 3px solid #922b21;
 }
 
 .btn-loot {
     background-color: #8e44ad;
     border-color: #9b59b6;
-    border-bottom: 4px solid #6c3483;
+    border-bottom: 3px solid #6c3483;
 }
 
 /* DETECCIÓN DE ORIENTACIÓN */

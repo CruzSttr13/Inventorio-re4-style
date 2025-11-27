@@ -3,8 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Inventario Tipo Resident Evil 4</title>
+    <!-- Viewport optimizado para que no haga zoom y use todo el espacio real -->
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Inventario RE4 - Mobile Edition</title>
     <!-- CSS EXTERNO -->
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -34,7 +36,7 @@
             </div>
 
             <button class="btn btn-rotate" onclick="rotateSelectedItem()">
-                🔄 Rotar (R)
+                🔄 Rotar
             </button>
 
             <button class="btn btn-magic" onclick="autoSort()">
@@ -42,7 +44,7 @@
             </button>
 
             <button class="btn btn-chaos" onclick="scrambleItems()">
-                🎲 Desordenar
+                🎲 Caos
             </button>
 
             <button class="btn btn-loot" onclick="generateNewLoot()">
